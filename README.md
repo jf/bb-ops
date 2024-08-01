@@ -2,7 +2,7 @@
 
 ### gitlab2teams.clj
 
-`/scripts/gitlab2teams.clj`: GitLab pipeline -> Teams notifier _(Workflows-ready!)_
+GitLab pipeline -> Teams notifier _(Workflows-ready!)_
 
 `pipeline-notifier` is currently available as a docker image on Docker Hub at https://github.com/jf/pipeline-notifier.
 
@@ -40,3 +40,7 @@ notify-failure:
   script:
     - # script is ignored but must be provided as per GitLab requirements
 ```
+
+### License
+
+pipeline-notifier is released under the [AGPLv3](https://www.gnu.org/licenses/agpl-3.0.html); [babashka](https://github.com/babashka/babashka) is released under its own [license](https://github.com/babashka/babashka?tab=readme-ov-file#license).
