@@ -2,7 +2,7 @@
 
 ### gitlab2teams.clj
 
-GitLab pipeline -> Teams notifier _(Workflows-ready!)_
+GitLab pipeline -> Teams notifier _([Workflows-ready](https://aka.ms/O365ConnectorDeprecation)!)_
 
 `pipeline-notifier` is available as a [docker image](https://hub.docker.com/r/jeffreyjflim/pipeline-notifier) for use in GitLab pipelines.
 
