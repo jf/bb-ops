@@ -4,11 +4,11 @@
 
 GitLab pipeline -> Teams notifier _(Workflows-ready!)_
 
-`pipeline-notifier` is currently available as a docker image on Docker Hub at https://github.com/jf/pipeline-notifier.
+`pipeline-notifier` is available as a [docker image](https://hub.docker.com/r/jeffreyjflim/pipeline-notifier) for use in GitLab pipelines.
 
-To use this in your GitLab pipeline, you will need to provide following environment variables to the container:
-- `TEAMS_WEBHOOK_URL`: your webhook URL for posting the notification to Teams. For your Workflows action's `Message` parameter, use `@{triggerBody()?['text']}`. More detailed setup instructions forthcoming, but for now, see [this GitLab issues comment](https://gitlab.com/gitlab-org/gitlab/-/issues/471344#note_2022899536).
-- `GITLAB_TOKEN`: GitLab API token (needed to get the actual raw commit message)
+You will need to provide the following environment variables to the container:
+- `TEAMS_WEBHOOK_URL`: your webhook URL for posting notifications to Teams. For your Workflows action's `Message` parameter, use `@{triggerBody()?['text']}`. More detailed setup instructions forthcoming, but for now, see [this GitLab issues comment](https://gitlab.com/gitlab-org/gitlab/-/issues/471344#note_2022899536).
+- `GITLAB_TOKEN`: GitLab API token (needed to get the actual _raw_, un-expanded commit message)
 - `AUTHOR_STYLE`: desired "author mention style". Can be one of `name`, `name_email`, `email`, or `username`.
 
 Sample YAML snippet for usage in GitLab:
@@ -24,7 +24,7 @@ notify-success:
     entrypoint: ['/scripts/gitlab2teams.clj']
 
   script:
-    - # script is ignored but must be provided as per GitLab requirements
+    - script is ignored but must be provided as per GitLab requirements
 
 notify-failure:
   stage: .post
@@ -38,7 +38,7 @@ notify-failure:
     entrypoint: ['/scripts/gitlab2teams.clj']
 
   script:
-    - # script is ignored but must be provided as per GitLab requirements
+    - script is ignored but must be provided as per GitLab requirements
 ```
 
 ### License
