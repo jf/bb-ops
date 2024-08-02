@@ -7,7 +7,7 @@
 
 ;;; List of environment variables used by this script:
 ;;;
-;;; - AUTHOR_STYLE: one of ["name", "name_email", "email", or "username"]
+;;; - PIPELINE_NOTIFIER_AUTHOR_STYLE: one of ["name", "name_email", "email", or "username"]
 ;;;
 ;;; - TEAMS_WEBHOOK_URL
 ;;;
@@ -39,7 +39,7 @@
       (str/trimr)))
 
 (def html-notification-string
-  (let [author (case (env :AUTHOR_STYLE)
+  (let [author (case (env :PIPELINE_NOTIFIER_AUTHOR_STYLE)
                  "email"      (env :GITLAB_USER_EMAIL)
                  "name"       (env :GITLAB_USER_NAME)
                  "name_email" (env :CI_COMMIT_AUTHOR)
