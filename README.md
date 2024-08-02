@@ -17,7 +17,7 @@ notify-success:
   stage: .post
   variables:
     CI_PIPELINE_PASSED: define this (any value) to indicate that the pipeline has passed. Else it has failed
-    AUTHOR_STYLE: name_email
+    PIPELINE_NOTIFIER_AUTHOR_STYLE: name_email
 
   image:
     name: jeffreyjflim/pipeline-notifier
@@ -31,7 +31,7 @@ notify-failure:
   when:  on_failure
 
   variables:
-    AUTHOR_STYLE: username
+    PIPELINE_NOTIFIER_AUTHOR_STYLE: username
 
   image:
     name: jeffreyjflim/pipeline-notifier
