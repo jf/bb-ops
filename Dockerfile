@@ -1,3 +1,3 @@
-FROM babashka/babashka AS builder
+FROM babashka/babashka
 
 COPY gitlab2teams.clj /scripts/

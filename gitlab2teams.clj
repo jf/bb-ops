@@ -2,7 +2,6 @@
 
 (require '[babashka.http-client :as http]
          '[cheshire.core :as json]
-         '[clojure.string :as str]
          '[hiccup2.core :as h])
 
 ;;; List of environment variables used by this script:
@@ -26,6 +25,7 @@
 ;;; - CI_PROJECT_URL
 ;;;
 ;;; - GITLAB_TOKEN
+;;; - GITLAB_USER_LOGIN
 
 (defn env [v]
   (System/getenv (str/upper-case (name v))))
