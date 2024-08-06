@@ -6,7 +6,10 @@
 
 ;;; List of environment variables used by this script:
 ;;;
-;;; - PIPELINE_NOTIFIER_AUTHOR_STYLE: one of ["name", "name_email", "email", or "username"]
+;;; - PN__AUTHOR_STYLE: one of ["name", "name_email", "email", or "username"]
+;;;
+;;; - PN__PROJECT_TRIM_REGEX:
+;;;   *string* or regex for removing from project name. The expected use I have in mind for this would be to remove a prefix from the project name (although sure, you can also remove characters from in the middle if you wish!), so that it is shorter and clearer for you. You may have a nested project name (e.g. `company-name/project-name/subproject-name/backend/core`), but for your own purposes, you only care about `backend/core`. In this case, `^company-name/project-name/subproject-name/` would work; as would something more generic like `^[^/]*/[^/]*/[^/]*/`.
 ;;;
 ;;; - TEAMS_WEBHOOK_URL
 ;;;
@@ -44,9 +47,20 @@
                  "name"       (env :GITLAB_USER_NAME)
                  "name_email" (env :CI_COMMIT_AUTHOR)
                  "username"   (env :GITLAB_USER_LOGIN))
+        author (case (env :PN__AUTHOR_STYLE)
+                 "email"      (env :GITLAB_USER_EMAIL)
+                 "name"       (env :GITLAB_USER_NAME)
+                 "name_email" (env :CI_COMMIT_AUTHOR)
+                 "username"   (env :GITLAB_USER_LOGIN)
+                 nil          author)
         callout (if (env :CI_PIPELINE_PASSED)
                   [:span {:style "background-color: green; color: white; padding: 4px; font-weight: bold"} "PASSED:"]
-                  [:span {:style "background-color: red;   color: white; padding: 4px; font-weight: bold"} "FAILED:"])]
+                  [:span {:style "background-color: red;   color: white; padding: 4px; font-weight: bold"} "FAILED:"])
+
+        project_trim_regex (env :PN__PROJECT_TRIM_REGEX)
+        project_path (if project_trim_regex
+                       (str/replace-first (env :CI_PROJECT_PATH) (re-pattern project_trim_regex) "")
+                       (env :CI_PROJECT_PATH))]
     (str
      (h/html
       [:h1 callout
@@ -56,7 +70,7 @@
          [:em (env :CI_COMMIT_BRANCH)]]]
        " "
        [:a {:href (env :CI_PROJECT_URL)}
-        [:strong (env :CI_PROJECT_PATH)]]]
+        [:strong project_path]]]
       " by "
       [:a {:href (str "https://gitlab.com/" (env :GITLAB_USER_LOGIN))}
        [:strong author]]
