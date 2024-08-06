@@ -7,7 +7,7 @@
 ;;; List of environment variables used by this script:
 ;;;
 ;;; - PN__AUTHOR_STYLE
-;;; - PN__PROJECT_TRIM_REGEX:
+;;; - PN__PROJECT_TRIM_REGEX
 ;;;
 ;;; - TEAMS_WEBHOOK_URL
 ;;;
@@ -56,9 +56,9 @@
                   [:span {:style "background-color: green; color: white; padding: 4px; font-weight: bold"} "PASSED:"]
                   [:span {:style "background-color: red;   color: white; padding: 4px; font-weight: bold"} "FAILED:"])
 
-        project_trim_regex (env :PN__PROJECT_TRIM_REGEX)
-        project_path (if project_trim_regex
-                       (str/replace-first (env :CI_PROJECT_PATH) (re-pattern project_trim_regex) "")
+        project-trim-regex (env :PN__PROJECT_TRIM_REGEX)
+        project-path (if project-trim-regex
+                       (str/replace-first (env :CI_PROJECT_PATH) (re-pattern project-trim-regex) "")
                        (env :CI_PROJECT_PATH))]
     (str
      (h/html
@@ -69,7 +69,7 @@
          [:em (env :CI_COMMIT_BRANCH)]]]
        " "
        [:a {:href (env :CI_PROJECT_URL)}
-        [:strong project_path]]]
+        [:strong project-path]]]
       " by "
       [:a {:href (str "https://gitlab.com/" (env :GITLAB_USER_LOGIN))}
        [:strong author]]
