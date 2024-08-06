@@ -6,10 +6,8 @@
 
 ;;; List of environment variables used by this script:
 ;;;
-;;; - PN__AUTHOR_STYLE: one of ["name", "name_email", "email", or "username"]
-;;;
+;;; - PN__AUTHOR_STYLE
 ;;; - PN__PROJECT_TRIM_REGEX:
-;;;   *string* or regex for removing from project name. The expected use I have in mind for this would be to remove a prefix from the project name (although sure, you can also remove characters from in the middle if you wish!), so that it is shorter and clearer for you. You may have a nested project name (e.g. `company-name/project-name/subproject-name/backend/core`), but for your own purposes, you only care about `backend/core`. In this case, `^company-name/project-name/subproject-name/` would work; as would something more generic like `^[^/]*/[^/]*/[^/]*/`.
 ;;;
 ;;; - TEAMS_WEBHOOK_URL
 ;;;
@@ -20,7 +18,7 @@
 ;;; - CI_COMMIT_SHORT_SHA
 ;;;
 ;;; - CI_PIPELINE_ID
-;;; - CI_PIPELINE_PASSED: define this (any value) to indicate that the pipeline has passed. Else it has failed.
+;;; - CI_PIPELINE_PASSED
 ;;; - CI_PIPELINE_URL
 ;;;
 ;;; - CI_PROJECT_ID
@@ -46,7 +44,8 @@
                  "email"      (env :GITLAB_USER_EMAIL)
                  "name"       (env :GITLAB_USER_NAME)
                  "name_email" (env :CI_COMMIT_AUTHOR)
-                 "username"   (env :GITLAB_USER_LOGIN))
+                 "username"   (env :GITLAB_USER_LOGIN)
+                 nil          (env :CI_COMMIT_AUTHOR))
         author (case (env :PN__AUTHOR_STYLE)
                  "email"      (env :GITLAB_USER_EMAIL)
                  "name"       (env :GITLAB_USER_NAME)
