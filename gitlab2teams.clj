@@ -7,6 +7,7 @@
 ;;; List of environment variables used by this script:
 ;;;
 ;;; - PN__AUTHOR_STYLE
+;;; - PN__PIPELINE_PASSED
 ;;; - PN__PROJECT_TRIM_REGEX
 ;;;
 ;;; - TEAMS_WEBHOOK_URL
@@ -18,7 +19,6 @@
 ;;; - CI_COMMIT_SHORT_SHA
 ;;;
 ;;; - CI_PIPELINE_ID
-;;; - CI_PIPELINE_PASSED
 ;;; - CI_PIPELINE_URL
 ;;;
 ;;; - CI_PROJECT_ID
@@ -52,7 +52,7 @@
                  "name_email" (env :CI_COMMIT_AUTHOR)
                  "username"   (env :GITLAB_USER_LOGIN)
                  author)
-        callout (if (env :CI_PIPELINE_PASSED)
+        callout (if (or (env :PN__PIPELINE_PASSED) (env :CI_PIPELINE_PASSED)
                   [:span {:style "background-color: green; color: white; padding: 4px; font-weight: bold"} "PASSED:"]
                   [:span {:style "background-color: red;   color: white; padding: 4px; font-weight: bold"} "FAILED:"])
 

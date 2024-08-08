@@ -9,17 +9,18 @@ GitLab pipeline -> Teams notifier _([Workflows-ready](https://aka.ms/O365Connect
 You will need to provide the following environment variables to the container:
 - `TEAMS_WEBHOOK_URL`: your webhook URL for posting notifications to Teams. For your Workflows action's `Message` parameter, use `@{triggerBody()?['text']}`. More detailed setup instructions forthcoming, but for now, see [this GitLab issues comment](https://gitlab.com/gitlab-org/gitlab/-/issues/471344#note_2022899536).
 - `GITLAB_TOKEN`: GitLab Access Token (needed to get the actual _raw_, un-expanded commit message). For a least-privilege setup, scope `read_api` is all you need; and if you're using a project- or group-based access token, use `Reporter` for the role.
+- `PN__PIPELINE_PASSED`: define this for your job (any value) to indicate that the pipeline has passed. _Otherwise, it is considered to have failed._ See the sample snippet below if you want to see how to do this.
 - `PN__AUTHOR_STYLE` (optional): desired "author mention style". Can be one of `name`, `name_email`, `email`, or `username`. Defaults to `name_email`.
-- `PN__PROJECT_TRIM_REGEX` (optional):
-  *string*, or *regex* for removing characters from project name
-  - The expected use I have in mind for this would be to remove a prefix (although sure, you could also remove characters from in the middle if you wish!), so that your project name is more succinct, and shorter. You may have a nested project name, for instance `company-name/project-name/subproject-name/backend/core`, but for your own purposes, you only care to show `backend/core` (the prefix / all that other context is unnecessary) in your notifications. In this case, `^company-name/project-name/subproject-name/` would work, as would something more generic like `^[^/]*/[^/]*/[^/]*/`.
+- `PN__PROJECT_TRIM_REGEX` (optional): *string* or *regex* for removing characters from project name
+  - The expected use for this would be to remove a prefix (although sure, you could also remove characters from in the middle if you wish!) so that your project name is shorter and more succinct.
+    You may have a nested project name, for instance `company-name/project-name/subproject-name/backend/core`, but for your own purposes, you only care to show `backend/core` (the prefix / other context is unnecessary) in your notifications. In this case, setting `PN__PROJECT_TRIM_REGEX` to `company-name/project-name/subproject-name/` would work, as would something more generic like `^[^/]*/[^/]*/[^/]*/`.
 
-Sample YAML snippet for usage in GitLab:
+Sample YAML snippet:
 ```
 notify-success:
   stage: .post
   variables:
-    CI_PIPELINE_PASSED: define this (any value) to indicate that the pipeline has passed. Else it has failed
+    PN__PIPELINE_PASSED: define this (any value) for your "notify-success" job to indicate that the pipeline has passed. Else it has failed
     PN__AUTHOR_STYLE: name_email
 
   image:
