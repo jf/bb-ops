@@ -40,18 +40,12 @@
       (str/trimr)))
 
 (def html-notification-string
-  (let [author (case (env :PIPELINE_NOTIFIER_AUTHOR_STYLE)
+  (let [author (case (env :PN__AUTHOR_STYLE)
                  "email"      (env :GITLAB_USER_EMAIL)
                  "name"       (env :GITLAB_USER_NAME)
                  "name_email" (env :CI_COMMIT_AUTHOR)
                  "username"   (env :GITLAB_USER_LOGIN)
                  (env :CI_COMMIT_AUTHOR))
-        author (case (env :PN__AUTHOR_STYLE)
-                 "email"      (env :GITLAB_USER_EMAIL)
-                 "name"       (env :GITLAB_USER_NAME)
-                 "name_email" (env :CI_COMMIT_AUTHOR)
-                 "username"   (env :GITLAB_USER_LOGIN)
-                 author)
         callout (if (or (env :PN__PIPELINE_PASSED) (env :CI_PIPELINE_PASSED))
                   [:span {:style "background-color: green; color: white; padding: 4px; font-weight: bold"} "PASSED:"]
                   [:span {:style "background-color: red;   color: white; padding: 4px; font-weight: bold"} "FAILED:"])
