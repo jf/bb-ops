@@ -8,7 +8,7 @@
 ;;;
 ;;; - PN__AUTHOR_STYLE
 ;;; - PN__PIPELINE_PASSED
-;;; - PN__PROJECT_TRIM_REGEX
+;;; - PN__PROJECT_TRIM_CHARS
 ;;;
 ;;; - TEAMS_WEBHOOK_URL
 ;;;
@@ -56,9 +56,9 @@
                   [:span {:style "background-color: green; color: white; padding: 4px; font-weight: bold"} "PASSED:"]
                   [:span {:style "background-color: red;   color: white; padding: 4px; font-weight: bold"} "FAILED:"])
 
-        project-trim-regex (env :PN__PROJECT_TRIM_REGEX)
-        project-path (if project-trim-regex
-                       (str/replace-first (env :CI_PROJECT_PATH) (re-pattern project-trim-regex) "")
+        project-trim-chars (env :PN__PROJECT_TRIM_CHARS)
+        project-path (if project-trim-chars
+                       (str/replace-first (env :CI_PROJECT_PATH) (re-pattern project-trim-chars) "")
                        (env :CI_PROJECT_PATH))]
     (str
      (h/html

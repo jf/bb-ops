@@ -11,9 +11,9 @@ You will need to provide the following environment variables to the container:
 - `GITLAB_TOKEN`: GitLab Access Token (needed to get the actual _raw_, un-expanded commit message). For a least-privilege setup, scope `read_api` is all you need; and if you're using a project- or group-based access token, use `Reporter` for the role.
 - `PN__PIPELINE_PASSED`: define this (any value) in your "notify-success" job to indicate to `gitlab2teams.clj` that the pipeline has passed. _Otherwise, it is considered to have failed._ See the sample snippet below if you want to see how to do this.
 - `PN__AUTHOR_STYLE` (optional): desired "author mention style". Can be one of `name`, `name_email`, `email`, or `username`. Defaults to `name_email`.
-- `PN__PROJECT_TRIM_REGEX` (optional): *string* or *regex* for removing characters from project name
+- `PN__PROJECT_TRIM_CHARS` (optional): *string* or *regex* for removing characters from project name
   - The expected use for this would be to remove a prefix (although sure, you could also remove characters from in the middle if you wish!) so that your project name is shorter and more succinct.
-    You may have a nested project name, for instance `company-name/project-name/subproject-name/backend/core`, but for your own purposes, you only care to show `backend/core` (the prefix / other context is unnecessary) in your notifications. In this case, setting `PN__PROJECT_TRIM_REGEX` to `company-name/project-name/subproject-name/` would work, as would something more generic like `^[^/]*/[^/]*/[^/]*/`.
+    You may have a nested project name, for instance `company-name/project-name/subproject-name/backend/core`, but for your own purposes, you only care to show `backend/core` (the prefix / other context is unnecessary) in your notifications. In this case, setting `PN__PROJECT_TRIM_CHARS` to `company-name/project-name/subproject-name/` would work, as would something more generic like `^[^/]*/[^/]*/[^/]*/`.
 
 Sample YAML snippet:
 ```
