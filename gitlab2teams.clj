@@ -52,7 +52,7 @@
                  "name_email" (env :CI_COMMIT_AUTHOR)
                  "username"   (env :GITLAB_USER_LOGIN)
                  author)
-        callout (if (or (env :PN__PIPELINE_PASSED) (env :CI_PIPELINE_PASSED)
+        callout (if (or (env :PN__PIPELINE_PASSED) (env :CI_PIPELINE_PASSED))
                   [:span {:style "background-color: green; color: white; padding: 4px; font-weight: bold"} "PASSED:"]
                   [:span {:style "background-color: red;   color: white; padding: 4px; font-weight: bold"} "FAILED:"])
 
