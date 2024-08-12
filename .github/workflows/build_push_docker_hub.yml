@@ -29,6 +29,9 @@ jobs:
         with:
           push: true
 
+          sbom: true
+          provenance: mode=max
+
           platforms: |
             linux/amd64
             linux/arm64
