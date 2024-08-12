@@ -32,12 +32,13 @@
   (System/getenv (str/upper-case (name v))))
 
 (def MESSAGE_PRE
-  (-> (str "https://gitlab.com/api/v4/projects/" (env :CI_PROJECT_ID) "/repository/commits/" (env :CI_COMMIT_SHA))
-      (http/get {:headers {"PRIVATE-TOKEN" (env :GITLAB_TOKEN)}})
-      (:body)
-      (json/parse-string)
-      (get "message")
-      (str/trimr)))
+  (if-let [access-token (or (:env GITLAB_TOKEN) (:env PN__GITLAB_ACCESS_TOKEN))]
+    (-> (str "https://gitlab.com/api/v4/projects/" (env :CI_PROJECT_ID) "/repository/commits/" (env :CI_COMMIT_SHA))
+        (http/get {:headers {"PRIVATE-TOKEN" access-token}})
+        (:body)
+        (json/parse-string)
+        (get "message")
+        (str/trimr))))
 
 (def html-notification-string
   (let [author (case (env :PN__AUTHOR_STYLE)
@@ -76,6 +77,7 @@
       [:br]
       [:pre MESSAGE_PRE]))))
 
-(http/post (env :TEAMS_WEBHOOK_URL)
-           {:headers {"Content-Type" "application/json"}
-            :body (json/generate-string {:text html-notification-string})})
+(let [webhook-url (or (:env TEAMS_WEBHOOK_URL) (:env PN__TEAMS_WEBHOOK_URL))]
+  (http/post webhook-url
+             {:headers {"Content-Type" "application/json"}
+              :body (json/generate-string {:text html-notification-string})}))
