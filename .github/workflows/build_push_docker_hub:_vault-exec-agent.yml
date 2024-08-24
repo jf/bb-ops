@@ -1,5 +1,5 @@
 name: |
-  v-e-a: push+build DH
+  v-e-a: build+push to Docker Hub
 
 on:
   push:

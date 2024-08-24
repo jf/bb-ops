@@ -7,4 +7,4 @@ COPY vault-exec-agent/vault-exec-agent.clj /kaniko
 
 RUN sed -i '1s|.*|#!/busybox/env bb|' /kaniko/vault-exec-agent.clj
 
-ENTRYPOINT ["/busybox/env"]
+ENTRYPOINT ["/kaniko/vault-exec-agent.clj"]
