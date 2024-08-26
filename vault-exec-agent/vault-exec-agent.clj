@@ -17,14 +17,13 @@
 
 (def merged-secret-values
   (loop [path-components (-> (env :VAULT_KV_KEY) (str/split #"/"))
-         current ""
+         current (first path-components)
          env {}]
     (if (empty? path-components)
       env
-      (let [current (str current "/" (first path-components))]
-        (recur (rest path-components)
-               current
-               (merge env (get-kv-values-at current)))))))
+      (recur (rest path-components)
+             (str current "/" (nth path-components 1 nil))
+             (merge env (get-kv-values-at current))))))
 
 ;; special handling for kaniko (and other situations where there is no available translation for uid->username)
 (defn expand-home [s]
