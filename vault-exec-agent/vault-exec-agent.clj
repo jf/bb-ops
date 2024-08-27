@@ -8,6 +8,21 @@
 (defn env [v]
   (System/getenv (str/upper-case (name v))))
 
+;; from http-client.interceptors
+(def unexceptional-statuses
+  #{200 201 202 203 204 205 206 207 300 301 302 303 304 307})
+
+(defn http-get [url & [opts]]
+  "Wraps http/get to prevent 404s from throwing.
+   Borrows code from http-client/interceptors."
+  (let [resp (http/get url (assoc opts :throw false))]
+    (if-let [status (:status resp)]
+      (if (or (contains? unexceptional-statuses status)
+              (= 404 status))
+        resp
+        (throw (ex-info (str "Exceptional status code: " status) resp)))
+      resp)))
+
 (defn get-kv-values-at [path]
   (-> (str (env :VAULT_ADDR) "/v1/" (or (env :VAULT_KV_MOUNT_PATH) "kv-v2") "/data/" path)
       (http/get {:headers {"X-Vault-Token" (env :VAULT_TOKEN)}})
@@ -67,3 +82,8 @@
 (if *command-line-args*
   (apply exec {:extra-env fileified-secret-values} *command-line-args*)
   "")
+
+(comment
+  (http-get "http://httpstat.us/404")
+  (http-get "http://httpstat.us/403")
+)
