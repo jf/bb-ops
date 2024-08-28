@@ -25,7 +25,7 @@
 
 (defn get-kv-values-at [path]
   (-> (str (env :VAULT_ADDR) "/v1/" (or (env :VAULT_KV_MOUNT_PATH) "kv-v2") "/data/" path)
-      (http/get {:headers {"X-Vault-Token" (env :VAULT_TOKEN)}})
+      (http-get {:headers {"X-Vault-Token" (env :VAULT_TOKEN)}})
       (:body)
       (json/parse-string)
       (get-in ["data" "data"])))
