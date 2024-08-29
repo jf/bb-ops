@@ -42,8 +42,7 @@
 
 ;; special handling for kaniko (and other situations where there is no available translation for uid->username)
 (defn expand-home [s]
-  (if (and (= "?" (System/getProperty "user.home"))
-           (= "0" (-> (babashka.process/sh "id" "-u") :out str/trimr)))
+  (if (= (System/getProperty "user.home") "?")
     (-> s
         (str/replace-first #"^~" (env :HOME))
         fs/path)
