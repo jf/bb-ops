@@ -8,13 +8,13 @@
 (defn env [v]
   (System/getenv (str/upper-case (name v))))
 
-;; from http-client.interceptors
+;; from babashka.http-client.interceptors
 (def unexceptional-statuses
   #{200 201 202 203 204 205 206 207 300 301 302 303 304 307})
 
 (defn http-get [url & [opts]]
   "Wraps http/get to prevent 404s from throwing.
-   Borrows code from http-client/interceptors."
+   Borrows code from babashka.http-client.interceptors."
   (let [resp (http/get url (assoc opts :throw false))]
     (if-let [status (:status resp)]
       (if (or (contains? unexceptional-statuses status)
