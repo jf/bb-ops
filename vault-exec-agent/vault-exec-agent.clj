@@ -31,7 +31,7 @@
       (get-in ["data" "data"])))
 
 (def merged-secret-values
-  (loop [path-components (-> (env :VAULT_KV_KEY) (str/split #"/"))
+  (loop [path-components (-> (env :VAULT_KV_PATH) (str/split #"/"))
          current (first path-components)
          env {}]
     (if (empty? path-components)
