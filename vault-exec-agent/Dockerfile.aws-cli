@@ -5,6 +5,6 @@ FROM public.ecr.aws/aws-cli/aws-cli
 COPY --from=bb /usr/local/bin/bb /usr/local/bin
 COPY vault-exec-agent/vault-exec-agent.clj /usr/local/bin
 
-RUN yum -yq install gettext
+RUN yum -y -q install gettext
 
 ENTRYPOINT ["/usr/local/bin/vault-exec-agent.clj", "/usr/local/bin/aws"]
