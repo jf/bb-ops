@@ -7,8 +7,8 @@ on:
       - master
     paths:
       - vault-exec-agent/*.clj
-      - vault-exec-agent/Dockerfile
-      - .github/workflows/build_push_docker_hub:_vault-exec-agent.yml
+      - vault-exec-agent/Dockerfile.aws-cli
+      - .github/workflows/build_push_docker_hub:_vault-exec-agent:_aws-cli.yml
 
 
 jobs:
@@ -25,21 +25,6 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
-
-      - name: build and push bb-ops.kaniko
-        uses: docker/build-push-action@v6
-        with:
-          file: vault-exec-agent/Dockerfile.kaniko
-
-          push: true
-          sbom: true
-          provenance: mode=max
-
-          platforms: linux/amd64
-
-          tags: |
-            jeffreyjflim/bb-ops.kaniko:latest
-            jeffreyjflim/bb-ops.kaniko:${{ github.sha }}
 
       - name: build and push bb-ops.aws-cli
         uses: docker/build-push-action@v6
