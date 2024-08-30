@@ -7,4 +7,4 @@ COPY vault-exec-agent/vault-exec-agent.clj /usr/local/bin
 
 RUN yum -yq install gettext
 
-ENTRYPOINT ["/usr/local/bin/vault-exec-agent.clj"]
+ENTRYPOINT ["/usr/local/bin/vault-exec-agent.clj", "/usr/local/bin/aws"]
