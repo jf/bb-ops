@@ -40,3 +40,20 @@ jobs:
           tags: |
             jeffreyjflim/bb-ops.kaniko:latest
             jeffreyjflim/bb-ops.kaniko:${{ github.sha }}
+
+      - name: build and push bb-ops.aws-cli
+        uses: docker/build-push-action@v6
+        with:
+          file: vault-exec-agent/Dockerfile.aws-cli
+
+          push: true
+          sbom: true
+          provenance: mode=max
+
+          platforms: |
+            linux/amd64
+            linux/arm64
+
+          tags: |
+            jeffreyjflim/bb-ops.aws-cli:latest
+            jeffreyjflim/bb-ops.aws-cli:${{ github.sha }}
