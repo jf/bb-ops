@@ -1,5 +1,5 @@
 name: |
-  v-e-a: build+push to Docker Hub
+  v-e-a/aws-cli: build+push to Docker H
 
 on:
   push:

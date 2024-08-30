@@ -1,5 +1,5 @@
 name: |
-  v-e-a: build+push to Docker Hub
+  v-e-a/kaniko: build+push to Docker H
 
 on:
   push:
