@@ -1,13 +1,14 @@
-name: push+build to Docker Hub
+name: |
+  p-n: build+push to Docker Hub
 
 on:
   push:
     branches:
       - master
     paths:
-      - Dockerfile
-      - gitlab2teams.clj
-      - .github/workflows/build_push_docker_hub.yml
+      - pipeline-notifier/gitlab2teams.clj
+      - pipeline-notifier/Dockerfile
+      - .github/workflows/build_push_docker_hub:_pipeline-notifier.yml
 
 
 jobs:
@@ -28,8 +29,9 @@ jobs:
       - name: build and push (Docker Hub)
         uses: docker/build-push-action@v6
         with:
-          push: true
+          file: pipeline-notifier/Dockerfile
 
+          push: true
           sbom: true
           provenance: mode=max
 
