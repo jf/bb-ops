@@ -3,7 +3,6 @@ FROM jeffreyjflim/bb-ops AS bb-ops
 FROM public.ecr.aws/aws-cli/aws-cli
 
 COPY --from=bb-ops \
-	\
 	/usr/local/bin/bb \
 	/scripts/vault-exec-agent.clj \
 	\
