@@ -30,7 +30,7 @@ jobs:
       - name: build and push (Docker Hub)
         uses: docker/build-push-action@v6
         with:
-          file: pipeline-notifier/Dockerfile
+          file: Dockerfile
 
           push: true
           sbom: true
@@ -47,7 +47,7 @@ jobs:
       - name: build and push .alpine (Docker Hub)
         uses: docker/build-push-action@v6
         with:
-          file: pipeline-notifier/Dockerfile.alpine
+          file: Dockerfile.alpine
 
           push: true
           sbom: true
