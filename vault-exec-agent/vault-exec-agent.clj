@@ -78,7 +78,7 @@
              merged-secret-values))
 
 (def filtered-secret-values
-  (-> merged-secret-values
+  (-> fileified-secret-values
       (dissoc "VAULT_ADDR"
               "VAULT_KV_MOUNT_PATH"
               "VAULT_KV_PATH"
