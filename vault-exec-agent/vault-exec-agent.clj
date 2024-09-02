@@ -77,9 +77,16 @@
              {}
              merged-secret-values))
 
+(def filtered-secret-values
+  (-> merged-secret-values
+      (dissoc "VAULT_ADDR"
+              "VAULT_KV_MOUNT_PATH"
+              "VAULT_KV_PATH"
+              "VAULT_TOKEN")))
+
 ;; exec program with args with supplied; otherwise the practical result is to simply fileify out the *_FILE env vars
 (if *command-line-args*
-  (apply exec {:extra-env fileified-secret-values} *command-line-args*)
+  (apply exec {:extra-env filtered-secret-values} *command-line-args*)
   "")
 
 (comment
