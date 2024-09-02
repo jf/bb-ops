@@ -13,7 +13,7 @@ _**Secrets do NOT need to be defined at all stops along VAULT_KV_PATH**; the tok
 
 <sup>2.</sup> **Special handling for "\*_FILE" key-values in secret data:** when `vault-exec-agent.clj` encounters a "\*_FILE" key (e.g. `AWS_CONFIG_FILE`) in the data of a KV secret, it treats its value as the contents of a file, and automatically writes the content out into a file.
 If you include a `#bb-ops: ` header as the first line (`#bb-ops: /path/to/write/contents/to`), `vault-exec-agent.clj` will write the contents out to the given filename / path.
-After "\*_FILE" key-value processing, `vault-exec-agent.clj` updates the value to the filename / path, for reading / usage by your executable(s).
+After "\*_FILE" key-value processing, `vault-exec-agent.clj` updates the value to the filename / path that it wrote the contents to, for reading / usage by your exec-utable(s).
 
 ### bb-ops.kaniko
 
