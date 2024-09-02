@@ -1,9 +1,12 @@
-FROM babashka/babashka:alpine AS bba
+FROM jeffreyjflim/bb-ops.alpine AS bba
 
 FROM gcr.io/kaniko-project/executor:debug
 
-COPY --from=bba /bin/bb /kaniko
-COPY vault-exec-agent/vault-exec-agent.clj /kaniko
+COPY --from=bba \
+	/bin/bb \
+	/scripts/vault-exec-agent.clj \
+	\
+	/kaniko
 
 RUN sed -i '1s|.*|#!/kaniko/bb|' /kaniko/vault-exec-agent.clj
 

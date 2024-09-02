@@ -1,9 +1,13 @@
-FROM babashka/babashka AS bb
+FROM jeffreyjflim/bb-ops AS bb-ops
 
 FROM public.ecr.aws/aws-cli/aws-cli
 
-COPY --from=bb /usr/local/bin/bb /usr/local/bin
-COPY vault-exec-agent/vault-exec-agent.clj /usr/local/bin
+COPY --from=bb-ops \
+	\
+	/usr/local/bin/bb \
+	/scripts/vault-exec-agent.clj \
+	\
+	/usr/local/bin
 
 RUN yum -y -q install gettext
 
