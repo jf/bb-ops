@@ -28,7 +28,7 @@
         project-name (if project-trim-chars
                        (str/replace-first (env :GITHUB_REPOSITORY) (re-pattern project-trim-chars) "")
                        (env :GITHUB_REPOSITORY))
-        short-sha (-> (env :GITHUB_SHA) (take 7) str/join)]
+        short-sha (->> (env :GITHUB_SHA) (take 7) str/join)]
     (str
      (h/html
       [:h1 callout
