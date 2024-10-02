@@ -27,7 +27,7 @@
         project-name (if project-trim-chars
                        (str/replace-first (env :GITHUB_REPOSITORY) (re-pattern project-trim-chars) "")
                        (env :GITHUB_REPOSITORY))
-        repo-url (str "https://" (env :GITHUB_REPOSITORY))]
+        repo-url (str "https://github.com/" (env :GITHUB_REPOSITORY))]
     (str
      (h/html
       [:h1 callout
