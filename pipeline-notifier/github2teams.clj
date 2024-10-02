@@ -45,7 +45,7 @@
       [:a {:href (str repo-url "/commit/" (env :GITHUB_SHA))} (env :GITHUB_SHA)]
       [:br]
       " pipeline "
-      [:a {:href (str repo-url "/actions/runs/" (env :GITHUB_RUN_ID)} (env :GITHUB_RUN_ID)]
+      [:a {:href (str repo-url "/actions/runs/" (env :GITHUB_RUN_ID))} (env :GITHUB_RUN_ID)]
       [:br]
       [:br]
       #_[:pre MESSAGE_PRE]))))
