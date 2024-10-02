@@ -23,11 +23,12 @@
                   [:span {:style "background-color: green; color: white; padding: 4px; font-weight: bold"} "PASSED:"]
                   [:span {:style "background-color: red;   color: white; padding: 4px; font-weight: bold"} "FAILED:"])
 
+        repo-url (str "https://github.com/" (env :GITHUB_REPOSITORY))
         project-trim-chars (env :PN__PROJECT_TRIM_CHARS)
         project-name (if project-trim-chars
                        (str/replace-first (env :GITHUB_REPOSITORY) (re-pattern project-trim-chars) "")
                        (env :GITHUB_REPOSITORY))
-        repo-url (str "https://github.com/" (env :GITHUB_REPOSITORY))]
+        short-sha (-> (env :GITHUB_SHA) (take 7) str/join)]
     (str
      (h/html
       [:h1 callout
@@ -42,7 +43,7 @@
       [:a {:href (str "https://github.com/" author)}
        [:strong author]]
       ": commit "
-      [:a {:href (str repo-url "/commit/" (env :GITHUB_SHA))} (env :GITHUB_SHA)]
+      [:a {:href (str repo-url "/commit/" (env :GITHUB_SHA))} short-sha]
       [:br]
       " pipeline "
       [:a {:href (str repo-url "/actions/runs/" (env :GITHUB_RUN_ID))} (env :GITHUB_RUN_ID)]
