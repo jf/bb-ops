@@ -1,3 +1,3 @@
 FROM babashka/babashka
 
-COPY pipeline-notifier/gitlab2teams.clj /scripts/
+COPY pipeline-notifier/*.clj /scripts/

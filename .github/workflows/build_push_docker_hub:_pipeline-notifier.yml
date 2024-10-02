@@ -6,7 +6,7 @@ on:
     branches:
       - master
     paths:
-      - pipeline-notifier/gitlab2teams.clj
+      - pipeline-notifier/*.clj
       - pipeline-notifier/Dockerfile
       - .github/workflows/build_push_docker_hub:_pipeline-notifier.yml
 
